@@ -6,48 +6,130 @@
 </head>
 <body>
 <style>
-    input {
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 14px;
-        outline: none;
-        transition: border-color 0.3s;
+    /* ===== base ===== */
+    body {
+        margin: 0;
+        padding: 24px;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-color: #1f1f1f;
+        color: #e6e6e6;
     }
 
-    input:focus {
-        border-color: #0078d7;
-        box-shadow: 0 0 4px rgba(0,120,215,0.4);
+    h1 {
+        margin-bottom: 16px;
+        font-size: 26px;
     }
+
+    /* ===== links ===== */
+    a {
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-right: 6px;
+        display: inline-block;
+    }
+
+    a:hover {
+        background-color: #43a047;
+    }
+
+    /* reset link */
+    form a[href="/movies"] {
+        background-color: #4caf50;
+    }
+
+    /* ===== form ===== */
+    form {
+        margin-bottom: 20px;
+    }
+
+    form input {
+        background-color: #2a2a2a;
+        border: 1px solid #444;
+        border-radius: 6px;
+        padding: 7px 10px;
+        color: #fff;
+        margin-right: 10px;
+    }
+
+    form input:focus {
+        outline: none;
+        border-color: #2196f3;
+    }
+
+    /* ===== buttons ===== */
     button {
-        padding: 10px 22px;
         border: none;
         border-radius: 6px;
-        background-color: #4caf50; /* базовый зелёный */
-        color: #fff;
-        font-size: 14px;
+        padding: 7px 14px;
         font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     }
 
-    button:hover {
+    button.search {
+        background-color: #2196f3;
+        color: white;
+    }
+
+    button.search:hover {
+        background-color: #1e88e5;
+    }
+
+    /* delete button */
+    form button[type="submit"]:not(.search) {
+        background-color: #e0e0e0;
+        color: #222;
+    }
+
+    form button[type="submit"]:not(.search):hover {
+        background-color: #cfcfcf;
+    }
+
+    /* ===== table ===== */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #2b2b2b;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+
+    th {
+        background-color: #343a3d;
+        padding: 14px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    td {
+        padding: 14px;
+        border-top: 1px solid #3f3f3f;
+        font-size: 14px;
+    }
+
+    tr:hover {
+        background-color: #323232;
+    }
+
+    /* edit link inside table */
+    td a {
+        background-color: #4caf50;
+    }
+
+    td a:hover {
         background-color: #43a047;
-        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
     }
 
-    button:active {
-        transform: scale(0.96);
+    /* keep delete inline */
+    td form {
+        display: inline;
     }
-
-    /* чтобы кнопки в таблице не были огромными */
-    table button {
-        padding: 6px 14px;
-        font-size: 13px;
-    }
-
 </style>
+
      <h1>List</h1>
      <a href="/movies/new">New Movie</a>
      <form method="get" action="/movies">
@@ -75,14 +157,12 @@
          <td th:text="${movie.genre}"></td>
            <td>
                 <a th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
-               <form th:action="@{/movies/{id}/delete(id=${movie.id})}" style="body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 40px; color: #333; } h1 { text-align: center; color: #444; } a { display: inline-block; margin-bottom: 15px; padding: 8px 14px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 4px; transition: background-color 0.3s; } a:hover { background-color: #45a049; } table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.1); } th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; } th { background-color: #4CAF50; color: white; } tr:hover { background-color: #f1f1f1; } td a { background-color: #2196F3; padding: 6px 10px; border-radius: 4px; color: white; text-decoration: none; } td a:hover { background-color: #0b7dda; }" method="post" onsubmit="return handleDelete()">
+               <form th:action="@{/movies/{id}/delete(id=${movie.id})}"  method="post" onsubmit="return handleDelete()">
                         <button type="submit">Delete</button>
                </form>
            </td>
        </tr>
      </table>
-     <style> body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 40px; color: #333; } h1 { text-align: center; color: #444; } a { display: inline-block; margin-bottom: 15px; padding: 8px 14px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 4px; transition: background-color 0.3s; } a:hover { background-color: #45a049; } table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.1); } th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; } th { background-color: #4CAF50; color: white; } tr:hover { background-color: #f1f1f1; } td a { background-color: #2196F3; padding: 6px 10px; border-radius: 4px; color: white; text-decoration: none; } td a:hover { background-color: #0b7dda; }
 
-     </style>
 </body>
 </html>
