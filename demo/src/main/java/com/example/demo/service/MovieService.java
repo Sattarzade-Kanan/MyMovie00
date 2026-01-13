@@ -67,7 +67,7 @@ public List<Movie> getAllMovie(){
         }
 
         if (genre !=null &&  !genre.isBlank()){
-            return movieRepository.findByGenre(genre);
+            return movieRepository.findByGenreContainingIgnoreCase(genre);
         }
 
         return movieRepository.findAll();

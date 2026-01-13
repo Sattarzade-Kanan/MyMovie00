@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Movie;
 import com.example.demo.service.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,12 +33,15 @@ public class MoviePageController {
     return "movies/new";
     }
     @PostMapping
-      public String save(@ModelAttribute Movie movie){
+      public String save(@Valid @ModelAttribute Movie movie, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "movies/new";
+        }
         movieService.addMovie(movie);
         return "redirect:/movies";
     }
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable Integer id, Model model){
+    public String edit( @PathVariable Integer id ,Model model ){
         model.addAttribute("movie" ,movieService.getMovie(id));
         return "movies/edit";
     }

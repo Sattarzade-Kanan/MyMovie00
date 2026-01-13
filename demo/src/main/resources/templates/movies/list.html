@@ -5,14 +5,57 @@
     <title>List</title>
 </head>
 <body>
+<style>
+    input {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    input:focus {
+        border-color: #0078d7;
+        box-shadow: 0 0 4px rgba(0,120,215,0.4);
+    }
+    button {
+        padding: 10px 22px;
+        border: none;
+        border-radius: 6px;
+        background-color: #4caf50; /* базовый зелёный */
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    button:hover {
+        background-color: #43a047;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    button:active {
+        transform: scale(0.96);
+    }
+
+    /* чтобы кнопки в таблице не были огромными */
+    table button {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+</style>
      <h1>List</h1>
-     <a href="new.html">New Movie</a>
+     <a href="/movies/new">New Movie</a>
      <form method="get" action="/movies">
          Find By title:
          <input type="text" name="title" th:value="${title}"/>
          Find By genre:
          <input type="text" name="genre" th:value="${genre}"/>
-         <button type="submit">Search</button>
+      <button class="search" type="submit">Search</button>
          <a href="/movies">Reset</a>
      </form>
      <table border=" 1">

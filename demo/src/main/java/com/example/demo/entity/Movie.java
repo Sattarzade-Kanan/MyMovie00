@@ -1,16 +1,27 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
+
+@Data
 @Entity
 @Table(name = "movies")
 public class Movie{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message ="Title required")
     private String title;
+
+    @NotBlank(message ="ReleaseDate required")
     private String releaseDate;
-    private Integer duration;
+
+    @NotBlank(message ="Duration required")
+    private String duration;
+
+    @NotBlank(message ="Genre required")
     private String genre;
 
 
@@ -18,7 +29,7 @@ public class Movie{
 
     }
 
-    public Movie(Integer id, String title, String releaseDate, Integer duration, String genre) {
+    public Movie(Integer id, String title, String releaseDate, String duration, String genre) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -51,11 +62,11 @@ public class Movie{
         this.releaseDate = releaseDate;
     }
 
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
