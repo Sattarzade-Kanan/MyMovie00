@@ -34,7 +34,7 @@ public class MoviePageController {
     return "movies/new";
     }
     @PostMapping
-      public String save(@Valid @ModelAttribute MovieForm form, BindingResult bindingResult){
+      public String save(@Valid @ModelAttribute("movieForm") MovieForm form, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return form.getId() == null ?"movies/new" : "movies/edit";
         }
