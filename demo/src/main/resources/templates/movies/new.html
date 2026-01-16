@@ -20,7 +20,7 @@
     }
 
 </style>
-<form th:action="@{/movies}" th:object="${movie}" method="post" >
+<form th:action="@{/movies}" th:object="${movieForm}" method="post" >
 
     Title:
     <input type="text" th:field="*{title}">

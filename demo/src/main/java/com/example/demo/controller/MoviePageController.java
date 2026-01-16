@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MovieForm;
 import com.example.demo.entity.Movie;
 import com.example.demo.service.MovieService;
 import jakarta.validation.Valid;
@@ -29,20 +30,34 @@ public class MoviePageController {
     }
     @GetMapping("/new")
        public String form(Model model){
-    model.addAttribute("movie" , new Movie());
+    model.addAttribute("movieForm" , new MovieForm());
     return "movies/new";
     }
     @PostMapping
-      public String save(@Valid @ModelAttribute Movie movie, BindingResult bindingResult){
+      public String save(@Valid @ModelAttribute MovieForm form, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return "movies/new";
+            return form.getId() == null ?"movies/new" : "movies/edit";
+        }
+
+        Movie movie;
+        if (form.getId() == null){
+         movie = new Movie();
+        } else{
+           movie =  movieService.getMovie(form.getId());
         }
         movieService.addMovie(movie);
         return "redirect:/movies";
     }
     @GetMapping("/{id}/edit")
     public String edit( @PathVariable Integer id ,Model model ){
-        model.addAttribute("movie" ,movieService.getMovie(id));
+        Movie movie = movieService.getMovie(id);
+        MovieForm form = new MovieForm();
+        form.setId(movie.getId());
+        form.setTitle(movie.getTitle());
+        form.setReleaseDate(movie.getReleaseDate());
+        form.setDuration(movie.getDuration());
+        form.setGenre(movie.getGenre());
+        model.addAttribute("movieForm" ,form);//Title Release Date Duration Genre
         return "movies/edit";
     }
     @PostMapping("/{id}/delete")
@@ -50,4 +65,5 @@ public class MoviePageController {
         movieService.deleteMovie(id);
         return "redirect:/movies";
     }
+
 }

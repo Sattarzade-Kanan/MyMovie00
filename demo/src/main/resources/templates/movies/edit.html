@@ -22,7 +22,7 @@
 
 </style>
 
-<form th:action="@{/movies}" th:object="${movie}" method="post" >
+<form th:action="@{/movies}" th:object="${movieForm}" method="post" >
     <input type="hidden" th:field="*{id}">
 <div>
     Title:
@@ -30,7 +30,8 @@
 </div>
   <div>
     Release Date:
-  <input type="date" th:field="*{releaseDate}"> <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"> </div> <br>
+  <input type="date" th:field="*{releaseDate}">
+       <br>
   </div>
   <div>
     Genre:
@@ -38,7 +39,7 @@
   </div>
   <div>
     Duration:
-  <input type="number"  th:field="*{duration}"> <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div> <br>
+  <input type="number"  th:field="*{duration}"> <br>
   </div>
     <button type="submit">Edit Movie</button>
   <a href="/movies">Go to Home</a>
