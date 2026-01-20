@@ -16,10 +16,10 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-        @GetMapping("/all")
-    public List<Movie> getALL(){
-        return movieService.getAllMovie();
-        }
+//        @GetMapping("/all")
+//    public List<Movie> getALL(){
+//        return movieService.getAllMovie();
+//        }
         @GetMapping("/{id}")
       public Movie getMovie(@PathVariable Integer id){
         return movieService.getMovie(id);

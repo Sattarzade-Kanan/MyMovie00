@@ -5,6 +5,7 @@ import com.example.demo.repository.MovieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-public List<Movie> getAllMovie(){
+public List<Movie> getAllMovie(Sort sort){
         return movieRepository.findAll();
     }
   public Movie getMovie(@PathVariable Integer id){
