@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Movie;
+import com.example.demo.exception.MovieNotFoundException;
 import com.example.demo.repository.MovieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +21,11 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-public List<Movie> getAllMovie(Sort sort){
+public List<Movie> getAllMovie(){
         return movieRepository.findAll();
     }
   public Movie getMovie(@PathVariable Integer id){
-        return movieRepository.findById(id).orElseThrow( () -> new RuntimeException("Error"));
+        return movieRepository.findById(id).orElseThrow( () -> new MovieNotFoundException("Error"));
     }
     public Movie addMovie(@RequestBody Movie movie){
         return movieRepository.save(movie);
@@ -62,7 +63,7 @@ public List<Movie> getAllMovie(Sort sort){
         return movieRepository.findAll(pageable);
     }
 
-    public List<Movie> search(@PathVariable String title, @PathVariable String genre){
+    public List<Movie> search(@PathVariable String title, @PathVariable String genre,Sort sort){
         if (title !=null &&  !title.isBlank()){
             return movieRepository.findByTitleContainingIgnoreCase(title);
         }
@@ -71,6 +72,6 @@ public List<Movie> getAllMovie(Sort sort){
             return movieRepository.findByGenreContainingIgnoreCase(genre);
         }
 
-        return movieRepository.findAll();
+        return movieRepository.findAll(sort);
     }
 }
