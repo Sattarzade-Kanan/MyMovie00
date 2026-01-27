@@ -24,13 +24,13 @@ public class MovieService {
 public List<Movie> getAllMovie(){
         return movieRepository.findAll();
     }
-  public Movie getMovie(@PathVariable Integer id){
+  public Movie getMovie(Integer id){
         return movieRepository.findById(id).orElseThrow( () -> new MovieNotFoundException("Error"));
     }
-    public Movie addMovie(@RequestBody Movie movie){
+    public Movie addMovie( Movie movie){
         return movieRepository.save(movie);
     }
-    public Movie updateMovie(@PathVariable Integer id, @RequestBody Movie updatedMovie){
+    public Movie updateMovie( Integer id,  Movie updatedMovie){
         return movieRepository.findById(id).map(exsisting ->{
             exsisting.setTitle(updatedMovie.getTitle());
             exsisting.setReleaseDate(updatedMovie.getReleaseDate());
@@ -41,12 +41,15 @@ public List<Movie> getAllMovie(){
 
 
     }
-    public String deleteMovie(@PathVariable Integer id){
-        if (movieRepository.existsById(id)){
-             movieRepository.deleteById(id);
-             return "Movie deleted!";
+    public void deleteMovie( Integer id){
+        if (!movieRepository.existsById(id)){
+            throw new MovieNotFoundException(
+                    "No such a movie with id" + ":" + id
+            );
+
+
         }
-        return "Error";
+        movieRepository.deleteById(id);
     }
     //FIND METHODS
       public List<Movie> getAllMovieByTitle(String title){
@@ -58,12 +61,12 @@ public List<Movie> getAllMovie(){
     public List<Movie> getAllMovieByGenre(String genre){
         return movieRepository.findByGenre(genre);
     }
-    public Page<Movie> getMovieByPage(@PathVariable int page, @PathVariable int size){
+    public Page<Movie> getMovieByPage( int page,  int size){
         Pageable pageable = PageRequest.of(page, size);
         return movieRepository.findAll(pageable);
     }
 
-    public List<Movie> search(@PathVariable String title, @PathVariable String genre,Sort sort){
+    public List<Movie> search(String title,  String genre,Sort sort){
         if (title !=null &&  !title.isBlank()){
             return movieRepository.findByTitleContainingIgnoreCase(title);
         }

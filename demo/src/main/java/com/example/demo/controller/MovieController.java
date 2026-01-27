@@ -33,8 +33,8 @@ public class MovieController {
         return movieService.updateMovie(id, updatedMovie);
         }
         @DeleteMapping("/delete/{id}")
-    public String deleteMovie(@PathVariable Integer id){
-        return movieService.deleteMovie(id);
+    public void deleteMovie(@PathVariable Integer id){
+        movieService.deleteMovie(id);
         }
         //FIND METHODS (QUERY)
     @GetMapping("/title/{title}")

@@ -128,9 +128,73 @@
     td form {
         display: inline;
     }
+    .success, .error {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    min-width: 260px;
+    padding: 14px 18px;
+    border-radius: 12px;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+    animation: fadeOut 3s ease forwards;
+}
+
+/* SUCCESS */
+.success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+/* ERROR */
+.error {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+/* Текст */
+.success p,
+.error p {
+    margin: 0;
+}
+
+/* Анимация исчезновения */
+@keyframes fadeOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+    }
+}
+
 </style>
 
      <h1>List</h1>
+
+     <div class="success" th:if="${success}">
+         <p th:text="${success}"></p>
+     </div>
+
+
+<div class="error" th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
      <a href="/movies/new">New Movie</a>
      <form method="get" action="/movies">
 
@@ -143,7 +207,7 @@
      </form>
      <table border=" 1">
           <tr>
-            <th>ID</th>
+
             <th>Title   <a th:href="@{/movies(
          sortBy = 'title', direction=${direction == 'asc' ? 'desc' : 'asc'}
 
@@ -155,7 +219,7 @@
               <th>Actions</th>
           </tr>
        <tr th:each="movie : ${movies}">
-         <td th:text="${movie.id}"></td>
+
          <td th:text="${movie.title}"></td>
          <td th:text="${movie.releaseDate}"></td>
          <td th:text="${movie.duration}"></td>

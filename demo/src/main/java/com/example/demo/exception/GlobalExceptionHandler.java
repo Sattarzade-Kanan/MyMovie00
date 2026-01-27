@@ -9,6 +9,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MovieNotFoundException.class)
     public String handleMovieNotFound(MovieNotFoundException ex, Model model){
         model.addAttribute("message" , ex.getMessage());
-        return "error/not-found";
+        return "movies/error/not-found";
     }
 }

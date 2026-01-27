@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -73,8 +74,15 @@ model.addAttribute("direction" , direction);
         return "movies/edit";
     }
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable Integer id){
-        movieService.deleteMovie(id);
+    public String delete(@PathVariable Integer id,
+                         RedirectAttributes redirectAttributes){
+        try{
+            movieService.deleteMovie(id);
+            redirectAttributes.addFlashAttribute("success", "Movie  delete successfully");
+
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("error" ,e.getMessage());
+        }
         return "redirect:/movies";
     }
 
