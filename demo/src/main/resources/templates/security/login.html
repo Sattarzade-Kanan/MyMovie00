@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf,org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<form th:action="@{/login}" method="post">
+    <h1>Login</h1>
+    <div>
+        <input type="text" name="username">
+    </div>
+    <div>
+        <input type="password" name="password">
+    </div>
+    <button type="submit">Login</button>
+
+    <p th:if="${param.error} " style="color:red">
+    Wrong username or password!
+</p>
+    <p th:if="${param.logout} " style="color:green">
+        Logged out successfully!
+    </p>
+</form>
+
+<style>
+    body {
+       margin: 0;
+       min-height: 100vh;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       background: #f4f6f8;
+       font-family: Arial, Helvetica, sans-serif;
+   }
+
+   h1 {
+       text-align: center;
+       margin-bottom: 20px;
+       color: #333;
+   }
+
+   form {
+       background: #ffffff;
+       padding: 25px 30px;
+       width: 300px;
+       border-radius: 8px;
+       border: 1px solid #ddd;
+   }
+
+   input {
+       width: 100%;
+       padding: 10px;
+       margin-bottom: 12px;
+       font-size: 14px;
+
+       border: 1px solid #ccc;
+       border-radius: 4px;
+   }
+
+   input:focus {
+       outline: none;
+       border-color: #4a7cff;
+   }
+
+   button {
+       width: 100%;
+       padding: 10px;
+       font-size: 15px;
+
+       background: #4a7cff;
+       color: white;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+   }
+
+   button:hover {
+       background: #3b6ae0;
+   }
+
+   p {
+       margin-top: 15px;
+       text-align: center;
+       font-size: 14px;
+   }
+
+</style>
+</body>
+
+</html>

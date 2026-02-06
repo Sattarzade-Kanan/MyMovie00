@@ -36,7 +36,7 @@ public List<Movie> getAllMovie(){
             exsisting.setReleaseDate(updatedMovie.getReleaseDate());
             exsisting.setDuration(updatedMovie.getDuration());
             exsisting.setGenre(updatedMovie.getGenre());
-            return movieRepository.save(updatedMovie);
+            return movieRepository.save(exsisting);
         }).orElseThrow( ()-> new RuntimeException("Error") );
 
 
