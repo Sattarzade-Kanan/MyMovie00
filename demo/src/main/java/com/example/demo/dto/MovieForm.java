@@ -1,21 +1,24 @@
 package com.example.demo.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class MovieForm {
     private Integer id;
     @NotBlank(message ="Title required")
+    @Size(min = 8 ,max = 50, message = "The limit has been exceeded, min 8, max 50")
     private String title;
 
-//    @NotBlank(message ="ReleaseDate required")
+  @NotBlank(message ="ReleaseDate required")
     private String releaseDate;
-
-//    @NotBlank(message ="Duration required")
+     @Size(min = 2,max = 3, message = "The limit has been exceeded, min 2, max 3")
+   @NotBlank(message ="Duration required")
     private String duration;
 
     @NotBlank(message ="Genre required")
+    @Size(min = 5 ,max = 20, message = "The limit has been exceeded, min 5, max 20")
     private String genre;
 
     public Integer getId() {

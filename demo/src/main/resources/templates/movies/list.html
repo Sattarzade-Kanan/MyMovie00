@@ -6,213 +6,158 @@
 </head>
 <body>
 <style>
-    /* ===== base ===== */
-    body {
-        margin: 0;
-        padding: 24px;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background-color: #1f1f1f;
-        color: #e6e6e6;
-    }
-
-    h1 {
-        margin-bottom: 16px;
-        font-size: 26px;
-    }
-
-    /* ===== links ===== */
-    a {
-        background-color: #4caf50;
-        color: white;
-        padding: 8px 14px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-right: 6px;
-        display: inline-block;
-    }
-
-    a:hover {
-        background-color: #43a047;
-    }
-
-    /* reset link */
-    form a[href="/movies"] {
-        background-color: #4caf50;
-    }
-
-    /* ===== form ===== */
-    form {
-        margin-bottom: 20px;
-    }
-
-    form input {
-        background-color: #2a2a2a;
-        border: 1px solid #444;
-        border-radius: 6px;
-        padding: 7px 10px;
-        color: #fff;
-        margin-right: 10px;
-    }
-
-    form input:focus {
-        outline: none;
-        border-color: #2196f3;
-    }
-
-    /* ===== buttons ===== */
-    button {
-        border: none;
-        border-radius: 6px;
-        padding: 7px 14px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    button.search {
-        background-color: #2196f3;
-        color: white;
-    }
-
-    button.search:hover {
-        background-color: #1e88e5;
-    }
-
-    /* delete button */
-    form button[type="submit"]:not(.search) {
-        background-color: #e0e0e0;
-        color: #222;
-    }
-
-    form button[type="submit"]:not(.search):hover {
-        background-color: #cfcfcf;
-    }
-
-    /* ===== table ===== */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #2b2b2b;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    }
-
-    th {
-        background-color: #343a3d;
-        padding: 14px;
-        text-align: left;
-        font-size: 14px;
-    }
-
-    td {
-        padding: 14px;
-        border-top: 1px solid #3f3f3f;
-        font-size: 14px;
-    }
-
-    tr:hover {
-        background-color: #323232;
-    }
-
-    /* edit link inside table */
-    td a {
-        background-color: #4caf50;
-    }
-
-    td a:hover {
-        background-color: #43a047;
-    }
-
-    /* keep delete inline */
-    td form {
-        display: inline;
-    }
-    .success, .error {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-
-    min-width: 260px;
-    padding: 14px 18px;
-    border-radius: 12px;
-
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-
-    color: #fff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-
-    animation: fadeOut 3s ease forwards;
-}
-
-/* SUCCESS */
-.success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-}
-
-/* ERROR */
-.error {
-    background: linear-gradient(135deg, #ef4444, #b91c1c);
-}
-
-/* Текст */
-.success p,
-.error p {
+    /* Общие стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
     margin: 0;
+    padding: 30px;
+    color: #333;
 }
 
-/* Анимация исчезновения */
-@keyframes fadeOut {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    15% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    85% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-    }
+/* Заголовок */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
 }
-/* Кнопка LogOut сверху справа */
-a[href="/login?logout"] {
-    position: fixed;
-    top: 20px;
-    right: 20px;
 
-    padding: 10px 18px;
-    background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
-    color: white;
+/* Сообщения */
+.success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+}
+
+/* Ссылки */
+a {
     text-decoration: none;
-    font-weight: 600;
-    border-radius: 12px;
-
-    box-shadow: 0 6px 18px rgba(255, 77, 77, 0.4);
-    transition: all 0.3s ease;
+    color: #3498db;
+    font-weight: 500;
+    margin-right: 10px;
 }
 
-/* Наведение */
-a[href="/login?logout"]:hover {
-    background: linear-gradient(135deg, #ff1a1a, #cc0000);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 26, 26, 0.6);
+a:hover {
+    text-decoration: underline;
 }
 
-/* Нажатие */
-a[href="/login?logout"]:active {
-    transform: scale(0.95);
+/* Кнопки */
+button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+button.search {
+    background: #2ecc71;
+}
+
+button.search:hover {
+    background: #27ae60;
+}
+
+/* Форма поиска */
+form {
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 4px rgba(52, 152, 219, 0.4);
+}
+
+/* Таблица */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f2f7ff;
+}
+
+/* Действия */
+td form {
+    display: inline;
+}
+
+td a {
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+/* Пагинация */
+span a {
+    padding: 6px 10px;
+    margin: 3px;
+    border-radius: 5px;
+    background: #ecf0f1;
+    color: #2c3e50;
+    transition: 0.2s;
+}
+
+span a:hover {
+    background: #3498db;
+    color: white;
+}
+
+span a[style*="bold"] {
+    background: #3498db;
+    color: white;
+}
+
+div.mt-3 a,
+div a {
+    font-size: 18px;
+    padding: 6px 10px;
 }
 
 </style>
-
      <h1>List</h1>
 
      <div class="success" th:if="${success}">
@@ -225,7 +170,7 @@ a[href="/login?logout"]:active {
 </div>
      <a href="/movies/new">New Movie</a>
 <a href="/login?logout">LogOut</a>
-     <form method="get" action="/movies">
+     <form method="get" th:action="@{/movies}" >
 
          Find By title:
          <input type="text" name="title" th:value="${title}"/>
@@ -238,8 +183,12 @@ a[href="/login?logout"]:active {
           <tr>
 
             <th>Title   <a th:href="@{/movies(
-         sortBy = 'title', direction=${direction == 'asc' ? 'desc' : 'asc'}
+         sortBy = 'title', direction=${direction == 'asc' ? 'desc' : 'asc'},
 
+      title=${title},
+      genre=${genre},
+      page=${currentPage},
+      size=${size}
          )}">Title <span th:if="${sortBy == 'title'}" th:text="${direction == 'asc' ? '▲' :'▼'}"></span>
             </a></th>
             <th>Release Date</th>
@@ -261,6 +210,48 @@ a[href="/login?logout"]:active {
            </td>
        </tr>
      </table>
+ <p>
 
+ </p>
+     <div class="mt-3">
+         <a th:if="${currentPage > 0 }" ,
+            th:href="@{/movies(
+            page=${currentPage - 1},
+            size=${size} ,
+             title=${title},
+             genre=${genre},
+             sortBy=${sortBy} ,
+             direction=${direction})}">
+             ←
+
+         </a>
+     </div>
+
+<span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+<a th:href="@{/movies(
+        page=${i},
+        size=${size},
+          title=${title},
+          genre=${genre},
+            sortBy=${sortBy},
+            direction=${direction})}"
+                              th:text="${i + 1}"
+                              th:style="${i == currentPage} ? 'font-weight:bold' : '' ">
+
+</a>
+</span>
+<div>
+    <a th:if="${currentPage + 1 < totalPages }" ,
+       th:href="@{/movies(
+            page=${currentPage + 1},
+            size=${size} ,
+             title=${title},
+             genre=${genre},
+             sortBy=${sortBy} ,
+             direction=${direction})}">
+        →
+
+    </a>
+</div>
 </body>
 </html>

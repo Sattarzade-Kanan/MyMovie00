@@ -77,4 +77,18 @@ public List<Movie> getAllMovie(){
 
         return movieRepository.findAll(sort);
     }
+
+      public Page<Movie> searchPaginated(
+              String title,
+              String genre,
+              int page,
+              int size,
+              Sort sort
+      ){
+        Pageable pageable = PageRequest.of(page,size,sort);
+        String safeTitle = (title == null) ? "" : title;
+          String safeGenre = (genre == null) ? "" : genre;
+
+          return movieRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase(safeTitle,safeGenre, pageable);
+      }
 }

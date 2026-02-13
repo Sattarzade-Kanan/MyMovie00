@@ -22,4 +22,6 @@ List<Movie> findByTitleContainingIgnoreCase(String title);
     List<Movie> findByGenreContainingIgnoreCase(String genre);
     //Pagination
         Page<Movie> findAll(Pageable pageable);
+        //UI Pagination
+    Page<Movie> findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase(String title,String genre, Pageable pageable);
 }

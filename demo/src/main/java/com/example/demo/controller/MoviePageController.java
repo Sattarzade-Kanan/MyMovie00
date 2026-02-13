@@ -4,6 +4,7 @@ import com.example.demo.dto.MovieForm;
 import com.example.demo.entity.Movie;
 import com.example.demo.service.MovieService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +24,47 @@ public class MoviePageController {
     }
 
     @GetMapping
-    public String list(@RequestParam(required = false) String title,
-                       @RequestParam(required = false) String genre,@RequestParam(defaultValue = "title") String sortBy,@RequestParam(defaultValue = "asc")String direction,
+    public String list(
+                       @RequestParam(required = false) String title,
+                       @RequestParam(required = false) String genre,
+                       @RequestParam(defaultValue = "title") String sortBy,
+                       @RequestParam(defaultValue = "asc")String direction,
+                       @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "5") int size,
                        Model model){
 
-        Sort sort = direction.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        List<Movie> movies = movieService.getAllMovie();
-        model.addAttribute("movies" ,movieService.search(title, genre, sort));
+
+        //F
+        if (page < 0 ){
+            page = 0;
+        }
+//        title= (title == null) ? "" : title;
+//        genre= (genre == null) ? "" : genre;
+//        sortBy= (sortBy == null) ? "title" : sortBy;
+//        direction= (direction == null) ? "asc" : direction;
+        //F
+
+
+        Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Page<Movie> moviePage = movieService.searchPaginated(title,genre,page,size,sort);
+
+           if (page >= moviePage.getTotalPages() && moviePage.getTotalPages() > 0){
+               page = moviePage.getTotalPages() - 1;
+               moviePage = movieService.searchPaginated(title,genre,page,size,sort);
+           }
+
+
+        //|
+        //UI
+        model.addAttribute("movies" , moviePage.getContent());
+        model.addAttribute("currentPage" , page);
+        model.addAttribute("totalPages" , moviePage.getTotalPages());
+        model.addAttribute("size" , size);
+//        model.addAttribute("movies" ,movieService.search(title, genre, sort));
         model.addAttribute("title" ,title);
         model.addAttribute("genre" ,genre);
-model.addAttribute("sortBy" , sortBy);
-model.addAttribute("direction" , direction);
+        model.addAttribute("sortBy" , sortBy);
+        model.addAttribute("direction" , direction);
 
         return "movies/list";
     }
