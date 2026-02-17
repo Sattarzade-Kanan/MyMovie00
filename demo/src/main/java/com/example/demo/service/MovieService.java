@@ -1,7 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.MovieForm;
+import com.example.demo.entity.Director;
 import com.example.demo.entity.Movie;
 import com.example.demo.exception.MovieNotFoundException;
+import com.example.demo.mapper.MovieMapper;
+import com.example.demo.repository.DirectorRepository;
 import com.example.demo.repository.MovieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,14 +20,37 @@ import java.util.List;
 @Service
 public class MovieService {
     private final MovieRepository movieRepository;
+    private final DirectorRepository directorRepository;
+    private final MovieMapper movieMapper;
 
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository, DirectorRepository directorRepository, MovieMapper movieMapper) {
         this.movieRepository = movieRepository;
+        this.directorRepository = directorRepository;
+
+        this.movieMapper = movieMapper;
     }
 
 public List<Movie> getAllMovie(){
         return movieRepository.findAll();
     }
+
+    public Director getDirector(Integer id){
+        return directorRepository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
+    }
+
+
+       public void saveForm(MovieForm movieForm){
+        Movie movie;
+        if (movieForm.getId() == null){
+            movie = new Movie();
+        }else {
+            movie = getMovie(movieForm.getId());
+        }
+
+         Director director = getDirector(movieForm.getDirectorId());
+        movieMapper.updatedEntityForm(movieForm, movie,director);
+        movieRepository.save(movie);
+       }
   public Movie getMovie(Integer id){
         return movieRepository.findById(id).orElseThrow( () -> new MovieNotFoundException("Error"));
     }

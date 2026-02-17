@@ -1,11 +1,12 @@
 package com.example.demo.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class MovieForm {
+public class MovieForm {//А MovieForm фильтрует инфромацую и отпроалвяет в db тоесть в Movie
     private Integer id;
     @NotBlank(message ="Title required")
     @Size(min = 8 ,max = 50, message = "The limit has been exceeded, min 8, max 50")
@@ -21,6 +22,8 @@ public class MovieForm {
     @Size(min = 5 ,max = 20, message = "The limit has been exceeded, min 5, max 20")
     private String genre;
 
+    @NotNull(message = "Shouldn't be null!")
+    private Integer directorId;
     public Integer getId() {
         return id;
     }
@@ -59,5 +62,13 @@ public class MovieForm {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public Integer getDirectorId() {
+        return directorId;
+    }
+
+    public void setDirectorId(Integer directorId) {
+        this.directorId = directorId;
     }
 }

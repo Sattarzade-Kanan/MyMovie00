@@ -49,7 +49,7 @@ public class MoviePageController {
         Page<Movie> moviePage = movieService.searchPaginated(title,genre,page,size,sort);
 
            if (page >= moviePage.getTotalPages() && moviePage.getTotalPages() > 0){
-               page = moviePage.getTotalPages() - 1;
+               page = moviePage.getTotalPages() - 1;//LRMS (0946)
                moviePage = movieService.searchPaginated(title,genre,page,size,sort);
            }
 
@@ -66,7 +66,7 @@ public class MoviePageController {
         model.addAttribute("sortBy" , sortBy);
         model.addAttribute("direction" , direction);
 
-        return "movies/list";
+        return "movies/list";//TRYWER
     }
     @GetMapping("/new")
        public String form(Model model){
@@ -97,7 +97,7 @@ public class MoviePageController {
         Movie movie = movieService.getMovie(id);
         MovieForm form = new MovieForm();
         form.setId(movie.getId());
-        form.setTitle(movie.getTitle());
+        form.setTitle(movie.getTitle());//LOREK 09-09-90
         form.setReleaseDate(movie.getReleaseDate());
         form.setDuration(movie.getDuration());
         form.setGenre(movie.getGenre());
