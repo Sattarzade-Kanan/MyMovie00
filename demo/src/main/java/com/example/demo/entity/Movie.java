@@ -24,7 +24,7 @@ public class Movie{
     @NotBlank(message ="Genre required")
     private String genre;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "director_id")
     private Director director;
     public Movie() {

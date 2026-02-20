@@ -31,6 +31,23 @@
     <input type="text" th:field="*{genre}"> <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></div> <br>
     Duration :
     <input type="number"  th:field="*{duration}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div><br>
+
+
+<br>
+Director
+<select th:field="*{directorId}">
+    <option value="">Select Director</option>
+
+<option th:each="d :  ${directors}" th:value="${d.id}" th:text="${d.name}">
+
+
+</option>
+</select>
+    <div class="errors-message" style="color:red"
+         th:if="${#fields.hasErrors('directorId')}"   th:errors="*{directorId}">
+
+    </div>
+   <br>
     <button type="submit">Save</button>
     <a href="/movies">Go to Home</a>
 </form>

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.MovieDTO;
 import com.example.demo.dto.MovieForm;
 import com.example.demo.entity.Director;
 import com.example.demo.entity.Movie;
@@ -105,7 +106,7 @@ public List<Movie> getAllMovie(){
         return movieRepository.findAll(sort);
     }
 
-      public Page<Movie> searchPaginated(
+      public Page<MovieDTO> searchPaginated(
               String title,
               String genre,
               int page,
@@ -116,6 +117,10 @@ public List<Movie> getAllMovie(){
         String safeTitle = (title == null) ? "" : title;
           String safeGenre = (genre == null) ? "" : genre;
 
-          return movieRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase(safeTitle,safeGenre, pageable);
+          Page<Movie>  moviePage  =
+                  movieRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase
+                          (safeTitle,safeGenre,pageable);
+
+             return moviePage.map(movieMapper::toDTO);
       }
 }

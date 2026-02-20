@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MovieDTO;
 import com.example.demo.dto.MovieForm;
+import com.example.demo.entity.Director;
 import com.example.demo.entity.Movie;
+import com.example.demo.repository.DirectorRepository;
 import com.example.demo.service.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -18,9 +21,11 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MoviePageController {
     private final MovieService movieService;
+private  final DirectorRepository directorRepository;
 
-    public MoviePageController(MovieService movieService) {
+    public MoviePageController(MovieService movieService, DirectorRepository directorRepository) {
         this.movieService = movieService;
+        this.directorRepository = directorRepository;
     }
 
     @GetMapping
@@ -46,7 +51,7 @@ public class MoviePageController {
 
 
         Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Page<Movie> moviePage = movieService.searchPaginated(title,genre,page,size,sort);
+        Page<MovieDTO> moviePage = movieService.searchPaginated(title,genre,page,size,sort);
 
            if (page >= moviePage.getTotalPages() && moviePage.getTotalPages() > 0){
                page = moviePage.getTotalPages() - 1;//LRMS (0946)
@@ -71,6 +76,7 @@ public class MoviePageController {
     @GetMapping("/new")
        public String form(Model model){
     model.addAttribute("movieForm" , new MovieForm());
+    model.addAttribute("director" , directorRepository.findAll());
     return "movies/new";
     }
     @PostMapping
@@ -89,6 +95,11 @@ public class MoviePageController {
        movie.setGenre(form.getGenre());
        movie.setReleaseDate(form.getReleaseDate());
        movie.setDuration(form.getDuration());
+
+        Director director = directorRepository.findById(form.getDirectorId())
+                        .orElseThrow(null);
+        movie.setDirector(director);
+
         movieService.addMovie(movie);
         return "redirect:/movies";
     }

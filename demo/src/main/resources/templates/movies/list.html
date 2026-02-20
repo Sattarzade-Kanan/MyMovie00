@@ -194,6 +194,7 @@ div a {
             <th>Release Date</th>
             <th>Duration</th>
             <th>Genre</th>
+              <th>Director</th>
               <th>Actions</th>
           </tr>
        <tr th:each="movie : ${movies}">
@@ -202,6 +203,7 @@ div a {
          <td th:text="${movie.releaseDate}"></td>
          <td th:text="${movie.duration}"></td>
          <td th:text="${movie.genre}"></td>
+           <td th:text="${movie.directorName}"></td>
            <td>
                 <a th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
                <form th:action="@{/movies/{id}/delete(id=${movie.id})}"  method="post" onsubmit="return handleDelete()">
