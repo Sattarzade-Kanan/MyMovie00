@@ -9,6 +9,7 @@ import com.example.demo.service.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,7 +77,7 @@ private  final DirectorRepository directorRepository;
     @GetMapping("/new")
        public String form(Model model){
     model.addAttribute("movieForm" , new MovieForm());
-    model.addAttribute("director" , directorRepository.findAll());
+    model.addAttribute("directors" , directorRepository.findAll());
     return "movies/new";
     }
     @PostMapping
@@ -103,7 +104,8 @@ private  final DirectorRepository directorRepository;
         movieService.addMovie(movie);
         return "redirect:/movies";
     }
-    @GetMapping("/{id}/edit")
+
+    @GetMapping("/edit/{id}")
     public String edit( @PathVariable Integer id ,Model model ){
         Movie movie = movieService.getMovie(id);
         MovieForm form = new MovieForm();
@@ -115,7 +117,9 @@ private  final DirectorRepository directorRepository;
         model.addAttribute("movieForm" ,form);//Title Release Date Duration Genre
         return "movies/edit";
     }
-    @PostMapping("/{id}/delete")
+
+
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id,
                          RedirectAttributes redirectAttributes){
         try{

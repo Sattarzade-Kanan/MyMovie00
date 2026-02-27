@@ -38,11 +38,13 @@ Director
 <select th:field="*{directorId}">
     <option value="">Select Director</option>
 
-<option th:each="d :  ${directors}" th:value="${d.id}" th:text="${d.name}">
+<option th:each="d :  ${directors}" th:value="${d.id}" th:text="${d.name}" class="custom-select">
 
 
 </option>
+
 </select>
+
     <div class="errors-message" style="color:red"
          th:if="${#fields.hasErrors('directorId')}"   th:errors="*{directorId}">
 
@@ -51,6 +53,34 @@ Director
     <button type="submit">Save</button>
     <a href="/movies">Go to Home</a>
 </form>
+     <style>
+         .custom-select {
+     width: 100%;
+     max-width: 300px;
+     padding: 10px 14px;
+     font-size: 14px;
+     border: 1px solid #ccc;
+     border-radius: 8px;
+     background-color: #ffffff;
+     color: #333;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     outline: none;
+ }
+
+ .custom-select:hover {
+     border-color: #4a90e2;
+ }
+
+ .custom-select:focus {
+     border-color: #4a90e2;
+     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+ }
+
+ .custom-select option {
+     padding: 10px;
+ }
+     </style>
      <style> body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; } h1 { color: #333; text-align: center; } a { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #007bff; } form { max-width: 400px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); } div { margin-bottom: 15px; } label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; } input[type="text"], input[type="date"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; } button { width: 100%; padding: 10px; background: #007bff; border: none; border-radius: 4px; color: #fff; font-size: 16px; cursor: pointer; } button:hover { background: #0056b3; } </style>
 </body>
 </html>

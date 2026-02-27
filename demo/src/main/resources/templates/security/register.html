@@ -2,51 +2,40 @@
 <html xmlns:th="http://www.thymeleaf,org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Register</title>
 </head>
 <body>
-
 <div class="container">
     <div class="card">
+        <h1>Register</h1>
 
-        <form th:action="@{/login}" method="post">
-            <h1>Login</h1>
+        <form th:action="@{/register}" th:object="${form}" method="post">
 
             <div class="form-group">
                 <label>Username</label>
-                <input type="text"
-                       name="username"
-                       required
-                       autocomplete="username">
+                <input type="text" th:field="*{username}">
+                <div class="error"
+                     th:if="${#fields.hasErrors('username')}"
+                     th:errors="*{username}"></div>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input type="password"
-                       name="password"
-                       required
-                       autocomplete="current-password">
+                <input type="password" th:field="*{password}">
+                <div class="error"
+                     th:if="${#fields.hasErrors('password')}"
+                     th:errors="*{password}"></div>
             </div>
 
-            <button type="submit">Login</button>
-
-            <div class="link">
-                <a th:href="@{/register}">
-                    You don’t have account? You can register
-                </a>
-            </div>
-
-            <p th:if="${param.error}" class="error">
-                Wrong username or password!
-            </p>
-
-            <p th:if="${param.logout}" class="success">
-                Logged out successfully!
-            </p>
-
+            <button type="submit">Register</button>
         </form>
+
+        <div class="login-link">
+            <a th:href="@{/login}">Do you have an account? You can log in</a>
+        </div>
     </div>
 </div>
+
 <style>
     body {
         margin: 0;
@@ -140,5 +129,4 @@
     }
 </style>
 </body>
-
 </html>

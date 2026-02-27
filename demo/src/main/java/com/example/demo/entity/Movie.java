@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 
-@Data
 @Entity
 @Table(name = "movies")
 public class Movie{

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf,org">
+<html xmlns:th="http://www.thymeleaf,org"
+
+      >
 <head>
     <meta charset="UTF-8">
     <title>List</title>
@@ -205,8 +207,8 @@ div a {
          <td th:text="${movie.genre}"></td>
            <td th:text="${movie.directorName}"></td>
            <td>
-                <a th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit</a>
-               <form th:action="@{/movies/{id}/delete(id=${movie.id})}"  method="post" onsubmit="return handleDelete()">
+                <a  th:href="@{/movies/edit/{id}(id=${movie.id})}">Edit</a>
+               <form th:action="@{/movies/delete/{id}(id=${movie.id})}"  method="post" onsubmit="return handleDelete()">
                         <button type="submit">Delete</button>
                </form>
            </td>
@@ -223,8 +225,8 @@ div a {
              title=${title},
              genre=${genre},
              sortBy=${sortBy} ,
-             direction=${direction})}">
-             ←
+             direction=${direction})}">   ←
+
 
          </a>
      </div>
@@ -250,8 +252,8 @@ div a {
              title=${title},
              genre=${genre},
              sortBy=${sortBy} ,
-             direction=${direction})}">
-        →
+             direction=${direction})}">   →
+
 
     </a>
 </div>
