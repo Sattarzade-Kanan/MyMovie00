@@ -7,9 +7,11 @@ import com.example.demo.entity.Movie;
 import com.example.demo.repository.DirectorRepository;
 import com.example.demo.service.MovieService;
 import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,16 +33,19 @@ private  final DirectorRepository directorRepository;
 
     @GetMapping
     public String list(
-                       @RequestParam(required = false) String title,
-                       @RequestParam(required = false) String genre,
-                       @RequestParam(defaultValue = "title") String sortBy,
-                       @RequestParam(defaultValue = "asc")String direction,
-                       @RequestParam(defaultValue = "0") int page,
-                       @RequestParam(defaultValue = "5") int size,
-                       Model model){
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String genre,
+            @RequestParam(defaultValue = "title") String sortBy,
+            @RequestParam(defaultValue = "asc")String direction,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            Model model, Authentication authentication){
 
-
+     boolean isAdmin = authentication.getAuthorities()
+             .stream()
+             .anyMatch( a -> a.getAuthority().equals("ROLE_ADMIN"));
         //F
+        //Stream - наблюдает anyMatch совпадает ли получается вместе наблюдает  совпадает ли?
         if (page < 0 ){
             page = 0;
         }
@@ -71,7 +76,7 @@ private  final DirectorRepository directorRepository;
         model.addAttribute("genre" ,genre);
         model.addAttribute("sortBy" , sortBy);
         model.addAttribute("direction" , direction);
-
+      model.addAttribute("isAdmin" , isAdmin);
         return "movies/list";//TRYWER
     }
     @GetMapping("/new")
