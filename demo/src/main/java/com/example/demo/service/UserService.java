@@ -25,6 +25,11 @@ public class UserService {
 
            user.setUsername(form.getUsername());
            user.setPassword(passwordEncoder.encode(form.getPassword()));
+
+           if (!form.getPassword().equals(form.getConfirmPassword()))  {
+               throw new RuntimeException("Password do not match");
+           }
+
            user.setRole("ROLE_USER");
            userRepository.save(user);
       }
