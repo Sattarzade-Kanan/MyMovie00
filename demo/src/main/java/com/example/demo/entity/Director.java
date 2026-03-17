@@ -10,15 +10,16 @@ public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false)
     private String name;
 
-@OneToMany(mappedBy = "director")
+    @OneToMany(mappedBy = "director")
     private List<Movie> movies;
 
-    public Director(){
+        public Director(){
 
-    }
+        }
 
     public Director(Integer id, String name, List<Movie> movies) {
         this.id = id;

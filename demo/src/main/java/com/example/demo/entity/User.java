@@ -12,16 +12,12 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String password;
-//  @Column(nullable = false)
-//   private String role;
 
-      private String role;
+    private String role;
+
       public User(){
 
       }
-
-
-
 
     public Integer getId() {
         return id;

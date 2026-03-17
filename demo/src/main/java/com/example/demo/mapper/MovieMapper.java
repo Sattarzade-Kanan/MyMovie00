@@ -6,8 +6,10 @@ import com.example.demo.dto.MovieForm;
 import com.example.demo.entity.Director;
 import com.example.demo.entity.Movie;
 import org.springframework.stereotype.Component;
-@Component//Помогает указать какой класс является бином(обьектом)
-public class MovieMapper {//MovieMapper-Помогает общаться с MovieForm и MovieDTO
+@Component
+//Помогает указать какой класс является бином(обьектом)
+public class MovieMapper {
+    //MovieMapper-Помогает общаться с MovieForm и MovieDTO
     //list.html
     public MovieDTO toDTO(Movie movie){
     MovieDTO dto = new MovieDTO();
@@ -23,8 +25,8 @@ public class MovieMapper {//MovieMapper-Помогает общаться с Mov
         }
         return dto;
     }
-    //frt 7812
-//edit and new
+
+    //edit and new
     public MovieForm toForm(Movie movie){
         MovieForm form = new MovieForm();
         form.setId(movie.getId());
@@ -32,13 +34,12 @@ public class MovieMapper {//MovieMapper-Помогает общаться с Mov
         form.setGenre(movie.getGenre());
         form.setDuration(movie.getDuration());
         form.setReleaseDate(movie.getReleaseDate());
-
         if (movie.getDirector() != null){
             form.setDirectorId(movie.getDirector().getId());
         }
         return form;
     }
-//New and Edit Form ->Entity
+    //New and Edit Form ->Entity
     public void updatedEntityForm(MovieForm form, Movie movie, Director director){
         movie.setTitle(form.getTitle());
         movie.setGenre(form.getGenre());

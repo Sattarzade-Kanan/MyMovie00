@@ -23,12 +23,13 @@ public class Movie{
     @NotBlank(message ="Genre required")
     private String genre;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "director_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "director_id")
     private Director director;
-    public Movie() {
 
-    }
+      public Movie() {
+
+      }
 
     public Movie(Integer id, String title, String releaseDate, String duration, String genre) {
         this.id = id;

@@ -155,69 +155,92 @@ span a[style*="bold"] {
 
 div.mt-3 a,
 div a {
-    font-size: 18px;
+    font-size: 14px;
     padding: 6px 10px;
 }
-   
+
+       .lang-switcher {
+    text-align: right;   /* выравнивание справа */
+    margin-bottom: 20px; /* отступ снизу */
+}
+
+.lang-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-left: 5px;
+    border-radius: 5px;
+    background: #ecf0f1;
+    color: #2c3e50;
+    font-weight: 500;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.lang-btn:hover {
+    background: #3498db;
+    color: white;
+}
+
 </style>
-     <h1>List</h1>
-
-     <div class="success" th:if="${success}">
-         <p th:text="${success}"></p>
-     </div>
-
+<h1 th:text="#{page.title}">List</h1>
+<div class="land-switcher">
+<a th:href="@{?lang=en}" th:text="#{lang.en}" class="lang-btn">EN</a>
+<a th:href="@{?lang=ru}" th:text="#{lang.ru}" class="lang-btn">RU</a>
+<a th:href="@{?lang=az}" th:text="#{lang.az}" class="lang-btn">AZ</a>
+</div>
+<div class="success" th:if="${success}">
+    <p th:text="${success}"></p>
+</div>
 
 <div class="error" th:if="${error}">
     <p th:text="${error}"></p>
 </div>
-     <a th:if="${isAdmin}"
-                href="/movies/new">New Movie</a>
+
+<a th:if="${isAdmin}" href="/movies/new" th:text="#{link.newMovie}">New Movie</a>
 <p></p>
-<a href="/login?logout">LogOut</a>
-     <form method="get" th:action="@{/movies}" >
+<a href="/login?logout" th:text="#{link.logout}">LogOut</a>
 
-         Find By title:
-         <input type="text" name="title" th:value="${title}"/>
-         Find By genre:
-         <input type="text" name="genre" th:value="${genre}"/>
-      <button class="search" type="submit">Search</button>
-         <a href="/movies">Reset</a>
-     </form>
-     <table border=" 1">
-          <tr>
+<form method="get" th:action="@{/movies}">
+    <span th:text="#{label.findByTitle}">Find By title:</span>
+    <input type="text" name="title" th:value="${title}" th:placeholder="#{label.findByTitle}"/>
+    <span th:text="#{label.findByGenre}">Find By genre:</span>
+    <input type="text" name="genre" th:value="${genre}" th:placeholder="#{label.findByGenre}"/>
+    <button class="search" type="submit" th:text="#{btn.search}">Search</button>
+    <a href="/movies" th:text="#{btn.reset}">Reset</a>
+</form>
 
-            <th>Title   <a th:href="@{/movies(
-         sortBy = 'title', direction=${direction == 'asc' ? 'desc' : 'asc'},
+<table border="1">
+    <tr>
+        <th>
+            <span th:text="#{table.title}">Title</span>
+            <a th:href="@{/movies(
+                sortBy='title', direction=${direction == 'asc' ? 'desc' : 'asc'},
+                title=${title}, genre=${genre}, page=${currentPage}, size=${size})}">
+                <span th:text="#{table.title}">Title</span>
+                <span th:if="${sortBy == 'title'}" th:text="${direction == 'asc' ? '▲' :'▼'}"></span>
+            </a>
+        </th>
+        <th th:text="#{table.releaseDate}">Release Date</th>
+        <th th:text="#{table.duration}">Duration</th>
+        <th th:text="#{table.genre}">Genre</th>
+        <th th:text="#{table.director}">Director</th>
+        <th th:if="${isAdmin}" th:text="#{table.actions}">Actions</th>
+    </tr>
 
-      title=${title},
-      genre=${genre},
-      page=${currentPage},
-      size=${size}
-         )}">Title <span th:if="${sortBy == 'title'}" th:text="${direction == 'asc' ? '▲' :'▼'}"></span>
-            </a></th>
-            <th>Release Date</th>
-            <th>Duration</th>
-            <th>Genre</th>
-              <th>Director</th>
-              <th th:if="${isAdmin}">Actions</th>
-          </tr>
-       <tr th:each="movie : ${movies}">
-
-         <td th:text="${movie.title}"></td>
-         <td th:text="${movie.releaseDate}"></td>
-         <td th:text="${movie.duration}"></td>
-         <td th:text="${movie.genre}"></td>
-           <td th:text="${movie.directorName}"></td>
-           <td>
-                <a th:if="${isAdmin}" th:href="@{/movies/edit/{id}(id=${movie.id})}">Edit</a>
-               <form th:action="@{/movies/delete/{id}(id=${movie.id})}"
-                         th:if="${isAdmin}"
-                     method="post" onsubmit="return handleDelete()">
-                        <button type="submit">Delete</button>
-               </form>
-           </td>
-       </tr>
-     </table>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.releaseDate}"></td>
+        <td th:text="${movie.duration}"></td>
+        <td th:text="${movie.genre}"></td>
+        <td th:text="${movie.directorName}"></td>
+        <td>
+            <a th:if="${isAdmin}" th:href="@{/movies/edit/{id}(id=${movie.id})}" th:text="#{button.edit}">Edit</a>
+            <form th:action="@{/movies/delete/{id}(id=${movie.id})}" th:if="${isAdmin}" method="post" onsubmit="return handleDelete()">
+                <button type="submit" th:text="#{button.delete}">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
  <p>
 
  </p>

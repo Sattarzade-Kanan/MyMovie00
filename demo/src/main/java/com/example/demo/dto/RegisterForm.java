@@ -18,10 +18,12 @@ public class RegisterForm {
     @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*+=]).{8,}$" ,
             message = "Password should include upper , lower, digit and special char"
-    )  //(?=,*[a-z]) - Проверяет ЕСЛИ есть а-z то все будет хорошо
+    )
+    //(?=,*[a-z]) - Проверяет ЕСЛИ есть а-z то все будет хорошо
     // (?=,\\d) -Означает должны быть цифры почему в пороли так ОПЯТЬ ЖЕ ОН ПРОВЕРЯТ
     // СОДЕРЖИТ ЛИ ОН ИЛИ НЕТ ЕСЛИ НЕТ ПЛОХО
     //.{8,} Говорит что может содержать минимум 8 до ....
+
     private String password;
 
     @NotBlank( message = "Please Confirm Password!")

@@ -6,24 +6,27 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class MovieForm {//А MovieForm фильтрует инфромацую и отпроалвяет в db тоесть в Movie
+public class MovieForm {
+    //А MovieForm фильтрует инфромацую и отпроалвяет в db тоесть в Movie
     private Integer id;
-    @NotBlank(message ="Title required")
-    @Size(min = 8 ,max = 50, message = "The limit has been exceeded, min 8, max 50")
+    @NotBlank(message ="{error.notblank}")
+    @Size(min = 8 ,max = 50, message = "{error.size}")
     private String title;
 
-  @NotBlank(message ="ReleaseDate required")
+    @NotBlank(message ="{error.notblank}")
     private String releaseDate;
-     @Size(min = 2,max = 3, message = "The limit has been exceeded, min 2, max 3")
-   @NotBlank(message ="Duration required")
+
+    @Size(min = 2,max = 3, message = "{error.size}")
+    @NotBlank(message ="{error.notblank}")
     private String duration;
 
-    @NotBlank(message ="Genre required")
-    @Size(min = 5 ,max = 20, message = "The limit has been exceeded, min 5, max 20")
+    @NotBlank(message ="{error.notblank}")
+    @Size(min = 5 ,max = 20, message = "{error.size}")
     private String genre;
 
-    @NotNull(message = "Shouldn't be null!")
+    @NotNull(message = "{error.size}")
     private Integer directorId;
+
     public Integer getId() {
         return id;
     }

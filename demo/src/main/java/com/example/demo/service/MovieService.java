@@ -13,11 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
-
 @Service
 public class MovieService {
     private final MovieRepository movieRepository;
@@ -35,47 +31,45 @@ public List<Movie> getAllMovie(){
         return movieRepository.findAll();
     }
 
-    public Director getDirector(Integer id){
-        return directorRepository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
-    }
-
-
-       public void saveForm(MovieForm movieForm){
-        Movie movie;
-        if (movieForm.getId() == null){
-            movie = new Movie();
-        }else {
-            movie = getMovie(movieForm.getId());
+        public Director getDirector(Integer id){
+           return directorRepository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
         }
 
-         Director director = getDirector(movieForm.getDirectorId());
-        movieMapper.updatedEntityForm(movieForm, movie,director);
-        movieRepository.save(movie);
+
+         public void saveForm(MovieForm movieForm){
+            Movie movie;
+            if (movieForm.getId() == null){
+               movie = new Movie();
+           }else {
+              movie = getMovie(movieForm.getId());
+          }
+            Director director = getDirector(movieForm.getDirectorId());
+            movieMapper.updatedEntityForm(movieForm, movie,director);
+            movieRepository.save(movie);
        }
-  public Movie getMovie(Integer id){
+        public Movie getMovie(Integer id){
         return movieRepository.findById(id).orElseThrow( () -> new MovieNotFoundException("Error"));
     }
-    public Movie addMovie( Movie movie){
+        public Movie addMovie( Movie movie){
         return movieRepository.save(movie);
     }
-    public Movie updateMovie( Integer id,  Movie updatedMovie){
+        public Movie updateMovie( Integer id,  Movie updatedMovie){
         return movieRepository.findById(id).map(exsisting ->{
             exsisting.setTitle(updatedMovie.getTitle());
             exsisting.setReleaseDate(updatedMovie.getReleaseDate());
             exsisting.setDuration(updatedMovie.getDuration());
             exsisting.setGenre(updatedMovie.getGenre());
+            exsisting.setDirector(updatedMovie.getDirector());
             return movieRepository.save(exsisting);
         }).orElseThrow( ()-> new RuntimeException("Error") );
 
 
     }
-    public void deleteMovie( Integer id){
+        public void deleteMovie( Integer id){
         if (!movieRepository.existsById(id)){
             throw new MovieNotFoundException(
                     "No such a movie with id" + ":" + id
             );
-
-
         }
         movieRepository.deleteById(id);
     }
@@ -83,7 +77,7 @@ public List<Movie> getAllMovie(){
       public List<Movie> getAllMovieByTitle(String title){
         return movieRepository.findByTitle(title);
     }
-    public List<Movie> getAllMovieByReleaseDate(String releaseDate){
+      public List<Movie> getAllMovieByReleaseDate(String releaseDate){
         return movieRepository.findByReleaseDate(releaseDate);
     }
     public List<Movie> getAllMovieByGenre(String genre){
@@ -115,12 +109,11 @@ public List<Movie> getAllMovie(){
       ){
         Pageable pageable = PageRequest.of(page,size,sort);
         String safeTitle = (title == null) ? "" : title;
-          String safeGenre = (genre == null) ? "" : genre;
+        String safeGenre = (genre == null) ? "" : genre;
 
           Page<Movie>  moviePage  =
-                  movieRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase
+                          movieRepository.findByTitleContainingIgnoreCaseAndGenreContainingIgnoreCase
                           (safeTitle,safeGenre,pageable);
-
-             return moviePage.map(movieMapper::toDTO);
+                 return moviePage.map(movieMapper::toDTO);
       }
 }

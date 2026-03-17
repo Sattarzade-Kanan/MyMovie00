@@ -14,18 +14,13 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
 
                         .requestMatchers("/swagger-ui/**" , "/v3/api-docs/**")
-                        .permitAll()
-                //public Pages
+                        .permitAll()//public Pages
                         .requestMatchers("/login", "/register", "/css/**" , "/js/**").permitAll().
                         requestMatchers("/movies/new" , "/movies/edit/**" , "/movies/delete/**")
                         .hasRole("ADMIN")
                         .requestMatchers("/movies/**")
                         .hasAnyRole("USER" , "ADMIN")
                         .anyRequest().authenticated())
-
-
-
-
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/movies" , true)
                         .failureUrl("/login?error")
                         .permitAll()

@@ -5,7 +5,7 @@
     <title>Edit Movie</title>
 </head>
 <body>
-<h1>Edit Movie</h1>
+<h1 th:text="#{app.title}"></h1>
 
 <style>
     .errors-message {
@@ -25,23 +25,41 @@
 <form th:action="@{/movies}" th:object="${movieForm}" method="post" >
     <input type="hidden" th:field="*{id}">
 <div>
-    Title:
+   <label th:text="#{movie.title}"></label>
   <input type="text" th:field="*{title}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div><br>
 </div>
   <div>
-    Release Date:
+      <label th:text="#{movie.releaseDate}"></label>
   <input type="date" th:field="*{releaseDate}">
        <br>
   </div>
   <div>
-    Genre:
+      <label th:text="#{movie.genre}"></label>
   <input type="text" th:field="*{genre}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></div><br>
   </div>
-  <div>
-    Duration:
-  <input type="number"  th:field="*{duration}"> <br>
-  </div>
-    <button type="submit">Edit Movie</button>
+
+    <div>
+        <label th:text="#{movie.duration}"></label>
+        <input type="number"  th:field="*{duration}"> <br>
+    </div>
+
+    Director
+    <select th:field="*{directorId}">
+        <option value="">Select Director</option>
+
+        <option th:each="d :  ${directors}" th:value="${d.id}" th:text="${d.name}" class="custom-select">
+
+
+        </option>
+
+    </select>
+
+    <div class="errors-message" style="color:red"
+         th:if="${#fields.hasErrors('directorId')}"   th:errors="*{directorId}">
+
+    </div>
+
+    <button type="submit" th:text="#{button.save}" ></button>
   <a href="/movies">Go to Home</a>
 </form>
 <style> body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; } h1 { color: #333; text-align: center; } a { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #007bff; } form { max-width: 400px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); } div { margin-bottom: 15px; } label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; } input[type="text"], input[type="date"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; } button { width: 100%; padding: 10px; background: #007bff; border: none; border-radius: 4px; color: #fff; font-size: 16px; cursor: pointer; } button:hover { background: #0056b3; } </style>
