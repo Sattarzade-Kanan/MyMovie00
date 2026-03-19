@@ -182,7 +182,7 @@ div a {
 }
 
 </style>
-<h1 th:text="#{page.title}">List</h1>
+<h1 th:text="#{page.title}">Movies List</h1>
 <div class="land-switcher">
 <a th:href="@{?lang=en}" th:text="#{lang.en}" class="lang-btn">EN</a>
 <a th:href="@{?lang=ru}" th:text="#{lang.ru}" class="lang-btn">RU</a>
@@ -197,7 +197,7 @@ div a {
 </div>
 
 <a th:if="${isAdmin}" href="/movies/new" th:text="#{link.newMovie}">New Movie</a>
-<p></p>
+<a th:if="${isAdmin}" href="/directors" th:text="#{link.directors}">Directors List</a>
 <a href="/login?logout" th:text="#{link.logout}">LogOut</a>
 
 <form method="get" th:action="@{/movies}">

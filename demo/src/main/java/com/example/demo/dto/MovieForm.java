@@ -9,22 +9,22 @@ import lombok.Data;
 public class MovieForm {
     //А MovieForm фильтрует инфромацую и отпроалвяет в db тоесть в Movie
     private Integer id;
-    @NotBlank(message ="{error.notblank}")
+    @NotBlank(message ="Title is required!")
     @Size(min = 8 ,max = 50, message = "{error.size}")
     private String title;
 
-    @NotBlank(message ="{error.notblank}")
+    @NotNull(message ="Release Date required!")
     private String releaseDate;
 
     @Size(min = 2,max = 3, message = "{error.size}")
-    @NotBlank(message ="{error.notblank}")
+    @NotBlank(message ="Duration required!")
     private String duration;
 
-    @NotBlank(message ="{error.notblank}")
+    @NotNull(message ="Genre is required!")
     @Size(min = 5 ,max = 20, message = "{error.size}")
     private String genre;
 
-    @NotNull(message = "{error.size}")
+    @NotNull(message = "Director required!")
     private Integer directorId;
 
     public Integer getId() {

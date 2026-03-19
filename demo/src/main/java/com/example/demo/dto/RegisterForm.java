@@ -7,23 +7,14 @@ import jakarta.validation.constraints.Size;
 public class RegisterForm {
     @NotBlank
     @Size(min = 3 , max = 15)
-    @Pattern(
-            regexp = "^[a-zA-Z0-9_]+$" ,
-            message = "Username can contain only letters, digits, underscore!"
-    )   //regexp Робота над строками!  ^ - Начало строки $ - Конец строки
-    // + - Означает что может ввести данные символы несколько раз
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$" ,
+             message = "Username can contain only letters, digits, underscore!")
     private String username;
+
     @NotBlank
     @Size(min = 8 , max = 80)
-    @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*+=]).{8,}$" ,
-            message = "Password should include upper , lower, digit and special char"
-    )
-    //(?=,*[a-z]) - Проверяет ЕСЛИ есть а-z то все будет хорошо
-    // (?=,\\d) -Означает должны быть цифры почему в пороли так ОПЯТЬ ЖЕ ОН ПРОВЕРЯТ
-    // СОДЕРЖИТ ЛИ ОН ИЛИ НЕТ ЕСЛИ НЕТ ПЛОХО
-    //.{8,} Говорит что может содержать минимум 8 до ....
-
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*+=]).{8,}$" ,
+             message = "Password should include upper , lower, digit and special char")
     private String password;
 
     @NotBlank( message = "Please Confirm Password!")
@@ -51,4 +42,11 @@ public class RegisterForm {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    //regexp Робота над строками!  ^ - Начало строки $ - Конец строки
+    // + - Означает что может ввести данные символы несколько раз
+    //(?=,*[a-z]) - Проверяет ЕСЛИ есть а-z то все будет хорошо
+    // (?=,\\d) -Означает должны быть цифры почему в пороли так ОПЯТЬ ЖЕ ОН ПРОВЕРЯТ
+    // СОДЕРЖИТ ЛИ ОН ИЛИ НЕТ ЕСЛИ НЕТ ПЛОХО
+    //.{8,} Говорит что может содержать минимум 8 до ....
 }

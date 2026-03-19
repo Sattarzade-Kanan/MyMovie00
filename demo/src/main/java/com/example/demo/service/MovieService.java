@@ -4,6 +4,7 @@ import com.example.demo.dto.MovieDTO;
 import com.example.demo.dto.MovieForm;
 import com.example.demo.entity.Director;
 import com.example.demo.entity.Movie;
+import com.example.demo.exception.DirectorNotFoundException;
 import com.example.demo.exception.MovieNotFoundException;
 import com.example.demo.mapper.MovieMapper;
 import com.example.demo.repository.DirectorRepository;
@@ -32,7 +33,7 @@ public List<Movie> getAllMovie(){
     }
 
         public Director getDirector(Integer id){
-           return directorRepository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
+           return directorRepository.findById(id).orElseThrow(() -> new DirectorNotFoundException("Error"));
         }
 
 
@@ -61,7 +62,7 @@ public List<Movie> getAllMovie(){
             exsisting.setGenre(updatedMovie.getGenre());
             exsisting.setDirector(updatedMovie.getDirector());
             return movieRepository.save(exsisting);
-        }).orElseThrow( ()-> new RuntimeException("Error") );
+        }).orElseThrow( ()-> new MovieNotFoundException("Error") );
 
 
     }

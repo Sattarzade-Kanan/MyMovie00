@@ -34,10 +34,8 @@ public class AuthController {
                    model.addAttribute("form" , new RegisterForm());
                    return "security/register";
               }
-
-                @PostMapping("/register")
-                 public String register(@Valid @ModelAttribute("form") RegisterForm form ,
-                                                                        BindingResult bindingResult){
+              @PostMapping("/register")
+              public String register(@Valid @ModelAttribute("form") RegisterForm form , BindingResult bindingResult){
                  if (bindingResult.hasErrors()){
                     return "security/register";
                }

@@ -1,5 +1,5 @@
 package com.example.demo.dto;
-public class MovieDTO {
+public class  MovieDTO {
     //MovieDTO Инфромация которую мы передаем пользователю это как HTML FILE Потом идет в MovieForm
     private Integer id;
     private String title;

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf,org">
+<head>
+    <meta charset="UTF-8">
+    <title>Director List</title>
+</head>
+<body>
+<style>
+  /* Общие стили */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 30px;
+  color: #333;
+}
+
+/* Заголовок */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Сообщения */
+.success {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border: 1px solid #f5c6cb;
+}
+
+/* Ссылки */
+a {
+  text-decoration: none;
+  color: #3498db;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Кнопки */
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+button.search {
+  background: #2ecc71;
+}
+
+button.search:hover {
+  background: #27ae60;
+}
+
+/* Форма поиска */
+form {
+  margin: 20px 0;
+}
+
+input[type="text"] {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 4px rgba(52, 152, 219, 0.4);
+}
+
+/* Таблица */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background: #2c3e50;
+  color: white;
+  padding: 8px;
+  text-align: left;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background: #f2f7ff;
+}
+
+/* Действия */
+td form {
+  display: inline;
+}
+
+td a {
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+/* Пагинация */
+span a {
+  padding: 6px 10px;
+  margin: 3px;
+  border-radius: 5px;
+  background: #ecf0f1;
+  color: #2c3e50;
+  transition: 0.2s;
+}
+
+span a:hover {
+  background: #3498db;
+  color: white;
+}
+
+span a[style*="bold"] {
+  background: #3498db;
+  color: white;
+}
+
+div.mt-3 a,
+div a {
+  font-size: 14px;
+  padding: 6px 10px;
+}
+
+     .lang-switcher {
+  text-align: right;   /* выравнивание справа */
+  margin-bottom: 20px; /* отступ снизу */
+}
+
+.lang-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background: #ecf0f1;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.lang-btn:hover {
+  background: #3498db;
+  color: white;
+}
+
+</style>
+ <h1>Director List</h1>
+    <table border="1">
+          <tr>
+            <th>
+              <span>Name</span>
+              <a th:href="@{/directors(
+              sortBy ='name' , direction=${direction == 'asc' ? 'desc' : 'asc'},
+              name=${name} , sur_name=${sur_name}
+              }"
+              >
+              <span>Name</span>
+                <span th:if="${sortBy == 'title'}" th:text = "${direction == 'asc' ? '▲' :'▼'}"></span>
+              </a>
+
+            </th>
+
+            <th>Surname</th>
+            <th>Birthday</th>
+            <th>Age</th>
+            <th>Actions</th>
+          </tr>
+
+      <tr th:each="director : ${directors}">
+        <td th:text="${director.name}"></td>
+        <td th:text="${director.sur_name}"></td>
+        <td th:text="${director.birthday}"></td>
+        <td th:text="${director.age}"></td>
+      </tr>
+    </table>
+
+</body>
+</html>
