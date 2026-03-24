@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Director</title>
+</head>
+<body>
+     <h1>Edit Director</h1>
+     <style>
+         .errors-message {
+             margin-top: 6px;
+             padding: 8px 12px;
+             background-color: #ffe6e6;
+             color: #c62828;
+             border: 1px solid #f5c2c2;
+             border-radius: 6px;
+             font-size: 14px;
+             font-weight: 500;
+             display: inline-block;
+         }
+
+     </style>
+      <form th:action="@{/directors}" th:object="${directorForm}" method="post">
+          <input type="hidden" th:field="*{id}">
+
+          <div>
+              <label>Name</label>
+              <input type="text" th:field="*{name}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br>
+          </div>
+
+
+          <div>
+              <label>Surname</label>
+              <input type="text" th:field="*{sur_name}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('sur_name')}" th:errors="*{sur_name}"></div><br>
+          </div>
+
+
+          <div>
+              <label>Birthday</label>
+              <input type="text" th:field="*{birthday}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div><br>
+          </div>
+
+
+          <div>
+              <label>Age</label>
+              <input type="text" th:field="*{age}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div><br>
+          </div>
+          <button type="submit">Save</button>
+          <a href="/directors">Go to Home</a>
+      </form>
+     <style> body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; } h1 { color: #333; text-align: center; } a { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #007bff; } form { max-width: 400px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); } div { margin-bottom: 15px; } label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; } input[type="text"], input[type="date"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; } button { width: 100%; padding: 10px; background: #007bff; border: none; border-radius: 4px; color: #fff; font-size: 16px; cursor: pointer; } button:hover { background: #0056b3; } </style>
+
+</body>
+</html>

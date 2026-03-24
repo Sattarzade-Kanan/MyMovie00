@@ -6,7 +6,7 @@ import com.example.demo.entity.Director;
 
 import com.example.demo.entity.Movie;
 import com.example.demo.repository.DirectorRepository;
-import com.example.demo.service.MovieService;
+import com.example.demo.service.interfaces.MovieService;
 
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

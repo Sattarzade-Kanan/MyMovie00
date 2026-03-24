@@ -181,17 +181,41 @@ div a {
 
 </style>
  <h1>Director List</h1>
+<div class="land-switcher">
+    <a th:href="@{?lang=en}" th:text="#{lang.en}" class="lang-btn">EN</a>
+    <a th:href="@{?lang=ru}" th:text="#{lang.ru}" class="lang-btn">RU</a>
+    <a th:href="@{?lang=az}" th:text="#{lang.az}" class="lang-btn">AZ</a>
+</div>
+  <div class="success" th:if="${success}">
+      <p th:text="${success}"></p>
+  </div>
+  <div class="error" th:if="${error}">
+    <p th:text="${error}"></p>
+  </div>
+
+  <a th:href="/directors/director-new">New Director</a>
+
+     <form method="get" th:action="@{/directors}">
+          <span>Find By Name:</span>
+         <input type="text" name="name" th:value="${name}">
+
+         <span>Find By Surname:</span>
+         <input type="text" name="surname" th:value="${sur_name}">
+         <button class="search" type="submit">Search</button>
+         <a href="/directors">Reset</a>
+     </form>
+
     <table border="1">
           <tr>
             <th>
               <span>Name</span>
-              <a th:href="@{/directors(
-              sortBy ='name' , direction=${direction == 'asc' ? 'desc' : 'asc'},
-              name=${name} , sur_name=${sur_name}
-              }"
-              >
-              <span>Name</span>
-                <span th:if="${sortBy == 'title'}" th:text = "${direction == 'asc' ? '▲' :'▼'}"></span>
+                <a th:href="@{/directors(
+                sortBy='name', direction=${direction == 'asc' ? 'desc' : 'asc'},
+                name=${name}, sur_name=${sur_name}, page=${currentPage}, size=${size})}">
+                    <span th:text="#{table.title}">Name</span>
+                    <span th:if="${sortBy == 'name'}" th:text="${direction == 'asc' ? '▲' :'▼'}"></span>
+                </a>
+                <span th:if="${sortBy == 'name'}" th:text = "${direction == 'asc' ? '▲' :'▼'}"></span>
               </a>
 
             </th>
@@ -207,6 +231,12 @@ div a {
         <td th:text="${director.sur_name}"></td>
         <td th:text="${director.birthday}"></td>
         <td th:text="${director.age}"></td>
+          <td>
+                <a th:href="@{/directors/director-edit/{id}(id=${director.id})}">Edit</a>
+              <form th:action="@{/directors/director-delete/{id}(id=${director.id})}" method="post" onsubmit="return handleDelete()">
+                  <button type="submit">Delete</button>
+              </form>
+          </td>
       </tr>
     </table>
 
