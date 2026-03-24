@@ -24,7 +24,7 @@ public class DirectorPageController {
     @GetMapping
        public String list(
                @RequestParam(required = false) String name,
-               @RequestParam(required = false) String surName,
+               @RequestParam(required = false) String surname,
                @RequestParam(defaultValue = "name") String sortBy,
                @RequestParam(defaultValue = "asc") String direction,
                Model model
@@ -32,7 +32,7 @@ public class DirectorPageController {
         Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
         model.addAttribute("name" , name);
-        model.addAttribute("surName" , surName);
+        model.addAttribute("surname" , surname);
         model.addAttribute("sortBy" , sortBy);
         model.addAttribute("direction" , direction);
         return "directors/director-list";
@@ -52,7 +52,7 @@ public class DirectorPageController {
 
 
         director.setName(form.getName());
-        director.setSur_name(form.getSur_name());
+        director.setSurname(form.getSurname());
         director.setBirthday(form.getBirthday());
         director.setAge(form.getAge());
 
@@ -66,7 +66,7 @@ public class DirectorPageController {
         DirectorForm form = new DirectorForm();
         form.setId(director.getId());
         form.setName(director.getName());
-        form.setSur_name(director.getSur_name());
+        form.setSurname(director.getSurname());
         form.setBirthday(director.getBirthday());
         form.setAge(director.getAge());
 

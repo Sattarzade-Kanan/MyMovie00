@@ -4,7 +4,7 @@ package com.example.demo.dto;
 public class DirectorDTO {
     private Integer id;
     private String name;
-    private String sur_name;
+    private String surname;
 
     private String birthday;
     private Integer age;
@@ -25,12 +25,12 @@ public class DirectorDTO {
         this.birthday = birthday;
     }
 
-    public String getSur_name() {
-        return sur_name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSur_name(String sur_name) {
-        this.sur_name = sur_name;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public Integer getId() {

@@ -16,14 +16,14 @@ public interface DirectorRepository extends JpaRepository<Director , Integer> {
     List<Director> findByName(String name);
 
     @Query(value = "SELECT * FROM directors WHERE LOWER(sur_name) LIKE LOWER(CONCAT('%':sur_name '%'))", nativeQuery = true)
-    List<Director> findBySurname(String sur_name);
+    List<Director> findBySurname(String surname);
 
     @Query(value = "SELECT * FROM directors WHERE LOWER(birthday) LIKE LOWER(CONCAT('%':birthday '%'))", nativeQuery = true)
     List<Director> findByBirthday(String birthday);
 
     List<Director> findByNameContainingIgnoreCase(String name);
-    List<Director> findBySurnameContainingIgnoreCase(String sur_name);
+    List<Director> findBySurnameContainingIgnoreCase(String surname);
 
     Page<Director> findAll(Pageable pageable);
-    Page<Director> findByNameContainingIgnoreCaseAndFindBySurnameContainingIgnoreCase(String name, String sur_name , Pageable pageable);
+    Page<Director> findByNameContainingIgnoreCaseAndFindBySurnameContainingIgnoreCase(String name, String surname , Pageable pageable);
 }

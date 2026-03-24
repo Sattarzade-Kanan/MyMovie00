@@ -15,7 +15,7 @@ public class Director {
     private String name;
 
     @Column(nullable = false)
-    private String sur_name;
+    private String surname;
 
     @Column(nullable = false)
     private String birthday;
@@ -30,10 +30,10 @@ public class Director {
 
         }
 
-    public Director(Integer id, String name, String sur_name, String birthday, Integer age, List<Movie> movies) {
+    public Director(Integer id, String name, String surname, String birthday, Integer age, List<Movie> movies) {
         this.id = id;
         this.name = name;
-        this.sur_name = sur_name;
+        this.surname = surname;
         this.birthday = birthday;
         this.age = age;
         this.movies = movies;
@@ -55,12 +55,12 @@ public class Director {
         this.birthday = birthday;
     }
 
-    public String getSur_name() {
-        return sur_name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSur_name(String sur_name) {
-        this.sur_name = sur_name;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public Integer getId() {

@@ -16,7 +16,7 @@ public class DirectorForm {
 
     @NotBlank(message = "SurName is Required!")
     @Size(min = 5,max = 25, message = "The surName must be between 5 and 25 characters long.")
-    private String sur_name;
+    private String surname;
 
     @NotBlank(message = "Birthday is Required!")
     private String birthday;
@@ -41,12 +41,12 @@ public class DirectorForm {
         this.birthday = birthday;
     }
 
-    public String getSur_name() {
-        return sur_name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSur_name(String sur_name) {
-        this.sur_name = sur_name;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public Integer getId() {

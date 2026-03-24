@@ -15,7 +15,7 @@ public class DirectorMapper {
         DirectorDTO dto = new DirectorDTO();
         dto.setId(director.getId());
         dto.setName(director.getName());
-        dto.setSur_name(director.getSur_name());
+        dto.setSurname(director.getSurname());
         dto.setBirthday(director.getBirthday());
         dto.setAge(director.getAge());
         return dto;
@@ -25,7 +25,7 @@ public class DirectorMapper {
         DirectorForm form = new DirectorForm();
         form.setId(director.getId());
         form.setName(director.getName());
-        form.setSur_name(director.getSur_name());
+        form.setSurname(director.getSurname());
         form.setBirthday(director.getBirthday());
         form.setAge(director.getAge());
         return form;
@@ -33,7 +33,7 @@ public class DirectorMapper {
     //New and Edit Form ->Entity
     public void updatedEntityForm(DirectorForm form , Director director){
         director.setName(form.getName());
-        director.setSur_name(form.getSur_name());
+        director.setSurname(form.getSurname());
         director.setBirthday(form.getBirthday());
         director.setAge(form.getAge());
     }

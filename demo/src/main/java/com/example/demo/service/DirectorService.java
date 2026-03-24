@@ -42,7 +42,7 @@ public class DirectorService {
                 exsisting.setName(updatedDirector.getName());
                 exsisting.setAge(updatedDirector.getAge());
                 exsisting.setBirthday(updatedDirector.getBirthday());
-                exsisting.setSur_name(updatedDirector.getSur_name());
+                exsisting.setSurname(updatedDirector.getSurname());
                 return  directorRepository.save(exsisting);
             }).orElseThrow(() -> new DirectorNotFoundException("Director not found with id :" + id));
         }
@@ -51,8 +51,8 @@ public class DirectorService {
         return directorRepository.findByName(name);
     }
 
-    public List<Director> findAllDirectorsBySurname(String sur_name){
-        return directorRepository.findBySurname(sur_name);
+    public List<Director> findAllDirectorsBySurname(String surname){
+        return directorRepository.findBySurname(surname);
     }
 
     public List<Director> findAllDirectorsByBirthday(String birthday){
@@ -60,13 +60,13 @@ public class DirectorService {
     }
 
     //SEARCH
-    public List<Director> searchDirector(String name, String sur_name, Sort sort){
+    public List<Director> searchDirector(String name, String surname, Sort sort){
         if(name !=null && !name.isBlank()){
             directorRepository.findByNameContainingIgnoreCase(name);
         }
 
-        if (sur_name !=null && !sur_name.isBlank()){
-            directorRepository.findBySurnameContainingIgnoreCase(sur_name);
+        if (surname !=null && !surname.isBlank()){
+            directorRepository.findBySurnameContainingIgnoreCase(surname);
         }
         return directorRepository.findAll(sort);
     }

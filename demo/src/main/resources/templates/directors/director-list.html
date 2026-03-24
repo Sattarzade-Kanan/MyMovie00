@@ -200,7 +200,7 @@ div a {
          <input type="text" name="name" th:value="${name}">
 
          <span>Find By Surname:</span>
-         <input type="text" name="surname" th:value="${sur_name}">
+         <input type="text" name="surname" th:value="${surname}">
          <button class="search" type="submit">Search</button>
          <a href="/directors">Reset</a>
      </form>
@@ -211,7 +211,7 @@ div a {
               <span>Name</span>
                 <a th:href="@{/directors(
                 sortBy='name', direction=${direction == 'asc' ? 'desc' : 'asc'},
-                name=${name}, sur_name=${sur_name}, page=${currentPage}, size=${size})}">
+                name=${name}, surname=${surname}, page=${currentPage}, size=${size})}">
                     <span th:text="#{table.title}">Name</span>
                     <span th:if="${sortBy == 'name'}" th:text="${direction == 'asc' ? '▲' :'▼'}"></span>
                 </a>
@@ -228,7 +228,7 @@ div a {
 
       <tr th:each="director : ${directors}">
         <td th:text="${director.name}"></td>
-        <td th:text="${director.sur_name}"></td>
+        <td th:text="${director.surname}"></td>
         <td th:text="${director.birthday}"></td>
         <td th:text="${director.age}"></td>
           <td>
