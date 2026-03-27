@@ -24,7 +24,8 @@
 
     Title:
     <input type="text" th:field="*{title}">
-    <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div><br>
+    <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('title')}"
+         th:errors="*{title}"></div><br>
     Release Date:
     <input type="date" th:field="*{releaseDate}">  <div class="errors-message" style="color: red" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"></div><br>
     Genre :

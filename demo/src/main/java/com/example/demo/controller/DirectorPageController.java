@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.DirectorDTO;
 import com.example.demo.dto.DirectorForm;
 import com.example.demo.entity.Director;
+import com.example.demo.repository.DirectorRepository;
 import com.example.demo.service.DirectorService;
 import jakarta.validation.Valid;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/directors")
 public class DirectorPageController {
     private final DirectorService directorService;
-
-    public DirectorPageController(DirectorService directorService) {
+    private final DirectorRepository directorRepository;
+    public DirectorPageController(DirectorService directorService, DirectorRepository directorRepository) {
         this.directorService = directorService;
+        this.directorRepository = directorRepository;
     }
 
     @GetMapping
@@ -27,20 +31,26 @@ public class DirectorPageController {
                @RequestParam(required = false) String surname,
                @RequestParam(defaultValue = "name") String sortBy,
                @RequestParam(defaultValue = "asc") String direction,
+               @RequestParam(defaultValue = "0") int page,
+               @RequestParam(defaultValue = "5") int size,
                Model model
     ){
-        Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
+        if (page < 0 ){
+            page = 0;
+        }
+
+        Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         model.addAttribute("name" , name);
         model.addAttribute("surname" , surname);
         model.addAttribute("sortBy" , sortBy);
         model.addAttribute("direction" , direction);
-        return "directors/director-list";
+        return "directors/list";
     }
     @PostMapping
     public String save(@Valid @ModelAttribute("directorForm")DirectorForm form, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return form.getId() == null ? "directors/director-new" : "directors/director-edit";
+            return form.getId() == null ? "directors/new" : "directors/edit";
         }
 
         Director director;
@@ -60,7 +70,14 @@ public class DirectorPageController {
         return "redirect:/directors";
     }
 
-    @GetMapping("/director-edit/{id}")
+       @GetMapping("/new")
+       public String form(Model model){
+        model.addAttribute("directorForm" , new DirectorForm());
+        model.addAttribute("directors" , directorRepository.findAll());
+        return "directors/new";
+       }
+
+    @GetMapping("/edit/{id}")
     public String editDirector(@PathVariable Integer id,Model model) {
         Director director = directorService.getDirector(id);
         DirectorForm form = new DirectorForm();
@@ -71,10 +88,10 @@ public class DirectorPageController {
         form.setAge(director.getAge());
 
         model.addAttribute("movieForm" , form);
-        return "directors/director-edit";
+        return "directors/edit";
     }
 
-    @PostMapping("/director-delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteDirector(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         try {
             directorService.deleteDirector(id);

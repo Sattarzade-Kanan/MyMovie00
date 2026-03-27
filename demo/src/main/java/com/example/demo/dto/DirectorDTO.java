@@ -1,6 +1,4 @@
 package com.example.demo.dto;
-
-
 public class DirectorDTO {
     private Integer id;
     private String name;

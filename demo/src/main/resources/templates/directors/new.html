@@ -21,24 +21,25 @@
 
   </style>
 
-      <form th:action="@{/director}" th:object="${directorForm}" method="post">
+      <form th:action="@{/directors}" th:object="${directorForm}" method="post">
         Name:
         <input type="text" th:field="*{name}">
-        <div class="errors-message" style="color :red" th:if="${#field.hasErrors('name')}" th:errors="*{name}"></div>
+        <div class="errors-message" style="color :red" th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"></div>
         <br>
         SurName:
         <input type="text" th:field="*{surname}">
-        <div class="errors-message" style="color :red" th:if="${#field.hasErrors('surname')}" th:errors="*{surname}"></div>
+        <div class="errors-message" style="color :red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
         <br>
         Birthday:
         <input type="date" th:field="*{birthday}">
-        <div class="errors-message" style="color :red" th:if="${#field.hasErrors('birthday')}" th:errors="*{birthday}"></div>
+        <div class="errors-message" style="color :red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
         <br>
         Age:
         <input type="number" th:field="*{age}">
-        <div class="errors-message" style="color :red" th:if="${#field.hasErrors('age')}" th:errors="*{age}"></div>
+        <div class="errors-message" style="color :red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
  <button type="submit">Save</button>
-        <a th:href="/directors">Go to Home</a>
+        <a href="/directors">Go to Home</a>
       </form>
   <style>
     .custom-select {

@@ -1,8 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.DirectorDTO;
 import com.example.demo.entity.Director;
 import com.example.demo.exception.DirectorNotFoundException;
+import com.example.demo.mapper.DirectorMapper;
 import com.example.demo.repository.DirectorRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +16,11 @@ import java.util.List;
 @Service
 public class DirectorService {
        private final DirectorRepository directorRepository;
+       private final DirectorMapper directorMapper;
 
-    public DirectorService(DirectorRepository directorRepository) {
+    public DirectorService(DirectorRepository directorRepository, DirectorMapper directorMapper) {
         this.directorRepository = directorRepository;
+        this.directorMapper = directorMapper;
     }
 
        //CRUD METHODS
@@ -47,17 +54,9 @@ public class DirectorService {
             }).orElseThrow(() -> new DirectorNotFoundException("Director not found with id :" + id));
         }
     //REPOSITORY METHODS
-    public List<Director> findAllDirectorsByName(String name){
-        return directorRepository.findByName(name);
-    }
 
-    public List<Director> findAllDirectorsBySurname(String surname){
-        return directorRepository.findBySurname(surname);
-    }
 
-    public List<Director> findAllDirectorsByBirthday(String birthday){
-        return directorRepository.findByBirthday(birthday);
-    }
+
 
     //SEARCH
     public List<Director> searchDirector(String name, String surname, Sort sort){
@@ -70,4 +69,15 @@ public class DirectorService {
         }
         return directorRepository.findAll(sort);
     }
+
+        public Page<DirectorDTO> searchPaginated(String name,String surname,int page,int size,Sort sort){
+            Pageable pageable = PageRequest.of(page,size,sort);
+            String safeName = (name == null) ? "" : name;
+            String safeSurname = (surname == null) ? "" : surname;
+
+            Page<Director> directorPage =
+                    directorRepository.paginationNeed(
+                            safeName, safeSurname , pageable);
+            return directorPage.map(directorMapper::toDTO);
+        }
 }

@@ -21,7 +21,7 @@ public class DirectorForm {
     @NotBlank(message = "Birthday is Required!")
     private String birthday;
 
-    @NotBlank(message = "Age is Required!")
+    @NotNull(message = "Age is Required!")
     private Integer age;
 
 
